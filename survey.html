@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIDRATA+ - Configura tu Perfil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #4FC3F7, #29B6F6, #03A9F4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .browser-bar {
+            background: #f5f5f5;
+            padding: 8px 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .browser-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .browser-controls span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .browser-controls span:nth-child(1) { background: #ff5f57; }
+        .browser-controls span:nth-child(2) { background: #ffbd2e; }
+        .browser-controls span:nth-child(3) { background: #28ca42; }
+
+        .url-bar {
+            background: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            margin-left: 10px;
+            font-size: 11px;
+            color: #999;
+            flex: 1;
+        }
+
+        .screen {
+            background: linear-gradient(135deg, #4FC3F7, #29B6F6, #03A9F4);
+            border-radius: 0 0 20px 20px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            min-height: 650px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .survey-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .question-group {
+            margin-bottom: 25px;
+        }
+
+        .question-label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .options-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .option-btn:hover, .option-btn.selected {
+            border-color: #03A9F4;
+            background: #E3F2FD;
+        }
+
+        .option-btn .icon {
+            font-size: 24px;
+        }
+
+        .male-icon { color: #2196F3; }
+        .female-icon { color: #E91E63; }
+        .other-icon { color: #9C27B0; }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .input-row input:focus {
+            outline: none;
+            border-color: #03A9F4;
+        }
+
+        .unit-label {
+            color: #666;
+            font-size: 14px;
+            min-width: 50px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .secondary-button {
+            flex: 1;
+            background: transparent;
+            color: #03A9F4;
+            border: 1px solid #03A9F4;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-button:hover {
+            background: #03A9F4;
+            color: white;
+        }
+
+        .primary-button {
+            flex: 2;
+            background: #03A9F4;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .primary-button:hover {
+            background: #0288D1;
+        }
+
+        .droplet-bg {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            height: 140px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .droplet-text {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .droplet-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .error-message {
+            color: #f44336;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .droplet-bg {
+                display: none;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+
+            .options-row {
+                gap: 10px;
+            }
+
+            .option-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .button-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="browser-bar">
+            <div class="browser-controls">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="url-bar">www.hidrata-plus.com/survey</div>
+            <div style="margin-left: auto; color: #666;">Encuesta</div>
+        </div>
+        
+        <div class="screen">
+            <div class="form-card">
+                <div class="survey-title">Escoge tu género, edad, peso y cultura</div>
+                
+                <form id="surveyForm">
+                    <div class="question-group">
+                        <div class="question-label">¿Cuál es tu género?</div>
+                        <div class="options-row">
+                            <div class="option-btn" data-value="male" onclick="selectGender(this)">
+                                <div class="icon male-icon">♂</div>
+                            </div>
+                            <div class="option-btn" data-value="female" onclick="selectGender(this)">
+                                <div class="icon female-icon">♀</div>
+                            </div>
+                            <div class="option-btn" data-value="other" onclick="selectGender(this)">
+                                <div class="icon other-icon">⚧</div>
+                            </div>
+                        </div>
+                        <div class="error-message" id="gender-error">Por favor selecciona tu género</div>
+                    </div>
+                    
+                    <div class="question-group">
+                        <div class="question-label">¿Tiempo en pantallas? (en horas)</div>
+                        <div class="input-row">
+                            <input type="number" id="screen-time" min="0" max="24" placeholder="0">
+                            <span class="unit-label">horas</span>
+                        </div>
+                        <div class="error-message" id="screen-error">Ingresa un tiempo válido (0-24 horas)</div>
+                    </div>
+                    
+                    <div class="question-group">
+                        <div class="question-label">¿Cuánto pesas? (en kg)</div>
+                        <div class="input-row">
+                            <input type="number" id="weight" min="20" max="300" placeholder="0">
+                            <span class="unit-label">kg</span>
+                        </div>
+                        <div class="error-message" id="weight-error">Ingresa un peso válido (20-300 kg)</div>
+                    </div>
+                    
+                    <div class="question-group">
+                        <div class="question-label">Frecuencia hidratación (en horas)</div>
+                        <div class="input-row">
+                            <input type="number" id="hydration-freq" min="0.5" max="12" step="0.5" placeholder="0">
+                            <span class="unit-label">horas</span>
+                        </div>
+                        <div class="error-message" id="freq-error">Ingresa una frecuencia válida (0.5-12 horas)</div>
+                    </div>
+                    
+                    <div class="question-group">
+                        <div class="question-label">¿Cuánto mides? (en cm)</div>
+                        <div class="input-row">
+                            <input type="number" id="height" min="100" max="250" placeholder="0">
+                            <span class="unit-label">cm</span>
+                        </div>
+                        <div class="error-message" id="height-error">Ingresa una altura válida (100-250 cm)</div>
+                    </div>
+                    
+                    <div class="button-row">
+                        <a href="index.html" class="secondary-button">ATRÁS</a>
+                        <button type="submit" class="primary-button">SIGUIENTE</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="droplet-bg">
+                <div>
+                    <div class="droplet-text">HIDRATA+</div>
+                    <div class="droplet-subtitle">Mantente hidratado</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedGender = null;
+
+        function selectGender(element) {
+            // Remover selección anterior
+            const siblings = element.parentNode.querySelectorAll('.option-btn');
+            siblings.forEach(btn => btn.classList.remove('selected'));
+            
+            // Agregar selección actual
+            element.classList.add('selected');
+            selectedGender = element.dataset.value;
+            
+            // Ocultar mensaje de error
+            document.getElementById('gender-error').style.display = 'none';
+        }
+
+        function validateForm() {
+            let isValid = true;
+            
+            // Validar género
+            if (!selectedGender) {
+                document.getElementById('gender-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar tiempo en pantallas
+            const screenTime = document.getElementById('screen-time').value;
+            if (!screenTime || screenTime < 0 || screenTime > 24) {
+                document.getElementById('screen-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('screen-error').style.display = 'none';
+            }
+            
+            // Validar peso
+            const weight = document.getElementById('weight').value;
+            if (!weight || weight < 20 || weight > 300) {
+                document.getElementById('weight-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('weight-error').style.display = 'none';
+            }
+            
+            // Validar frecuencia de hidratación
+            const hydrationFreq = document.getElementById('hydration-freq').value;
+            if (!hydrationFreq || hydrationFreq < 0.5 || hydrationFreq > 12) {
+                document.getElementById('freq-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('freq-error').style.display = 'none';
+            }
+            
+            // Validar altura
+            const height = document.getElementById('height').value;
+            if (!height || height < 100 || height > 250) {
+                document.getElementById('height-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('height-error').style.display = 'none';
+            }
+            
+            return isValid;
+        }
+
+        function calculateWaterNeeds(weight, height, screenTime, hydrationFreq) {
+            // Cálculo básico de necesidades de agua (35ml por kg de peso corporal)
+            let baseWater = weight * 35;
+            
+            // Ajuste por tiempo en pantallas (deshidratación adicional)
+            let screenAdjustment = screenTime * 50; // 50ml adicionales por hora
+            
+            // Ajuste por altura (personas más altas necesitan más agua)
+            let heightAdjustment = height > 180 ? 200 : height > 160 ? 100 : 0;
+            
+            // Total en ml
+            let totalWater = baseWater + screenAdjustment + heightAdjustment;
+            
+            return Math.round(totalWater);
+        }
+
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                // Recopilar datos
+                const formData = {
+                    gender: selectedGender,
+                    screenTime: document.getElementById('screen-time').value,
+                    weight: document.getElementById('weight').value,
+                    hydrationFreq: document.getElementById('hydration-freq').value,
+                    height: document.getElementById('height').value
+                };
+                
+                // Calcular necesidades de agua
+                const dailyWaterNeeds = calculateWaterNeeds(
+                    parseInt(formData.weight),
+                    parseInt(formData.height),
+                    parseInt(formData.screenTime),
+                    parseFloat(formData.hydrationFreq)
+                );
+                
+                // Guardar datos del usuario
+                const userData = {
+                    ...formData,
+                    dailyWaterGoal: dailyWaterNeeds,
+                    registrationDate: new Date().toISOString()
+                };
+                
+                // Guardar en localStorage
+                localStorage.setItem('userData', JSON.stringify(userData));
+                localStorage.setItem('userEmail', 'nuevo_usuario@hidrata-plus.com');
+                
+                // Mostrar resultado
+                alert(`¡Perfil configurado!\nTu meta diaria de hidratación es: ${dailyWaterNeeds}ml`);
+                
+                // Redirigir al dashboard
+                window.location.href = 'dashboard.html';
+            }
+        });
+
+        // Ocultar mensajes de error cuando el usuario empiece a escribir
+        document.addEventListener('input', function(e) {
+            if (e.target.type === 'number') {
+                const fieldId = e.target.id;
+                let errorId = '';
+                
+                switch(fieldId) {
+                    case 'screen-time':
+                        errorId = 'screen-error';
+                        break;
+                    case 'weight':
+                        errorId = 'weight-error';
+                        break;
+                    case 'hydration-freq':
+                        errorId = 'freq-error';
+                        break;
+                    case 'height':
+                        errorId = 'height-error';
+                        break;
+                }
+                
+                if (errorId) {
+                    document.getElementById(errorId).style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
